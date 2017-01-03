@@ -1,4 +1,4 @@
-package com.xhz.entropy.ui;
+package com.xhz.entropy.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
