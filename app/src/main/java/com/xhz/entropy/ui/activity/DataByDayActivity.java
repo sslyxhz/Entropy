@@ -1,5 +1,6 @@
 package com.xhz.entropy.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CheckResult;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.xhz.entropy.Constant;
 import com.xhz.entropy.R;
 import com.xhz.entropy.data.bean.GankTypeData;
 import com.xhz.entropy.presenter.DataByDayPresenter;
@@ -23,8 +25,8 @@ import butterknife.BindView;
 
 public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresenter>
         implements IDataByDayView<GankTypeData>, DataByDayAdapter.IClickItem {
-    public static final String TAG = DataByDayActivity.class.getSimpleName();
 
+    public static final String TAG = DataByDayActivity.class.getSimpleName();
     private static final int SPAN_COUNT = 2;
 
     @BindView(R.id.rcv_content)
@@ -100,7 +102,6 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
 
     @Override
     protected void onRefreshStarted() {
-//        Log.v(TAG, "onRefreshStarted..");
         mPresenter.reloadData();
     }
 
@@ -152,7 +153,9 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
     public void onClickPhoto(int position, View view, View textView) {
         GankTypeData clickData = mAdapter.getGankData(position);
         if (clickData != null) {
-
+            Intent intent = new Intent(this, GirlPhotoActivity.class);
+            intent.putExtra(Constant.EXTRA_URL, clickData.getUrl());
+            startActivity(intent);
         }
     }
 }

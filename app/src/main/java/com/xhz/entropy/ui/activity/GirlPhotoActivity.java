@@ -1,7 +1,10 @@
 package com.xhz.entropy.ui.activity;
 
+import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.xhz.entropy.Constant;
 import com.xhz.entropy.R;
 import com.xhz.entropy.presenter.GirlPhotoPresenter;
 import com.xhz.entropy.ui.view.IGirlPhotoView;
@@ -9,6 +12,7 @@ import com.xhz.entropy.ui.view.IGirlPhotoView;
 import butterknife.BindView;
 
 /**
+ * 图片展示界面
  * Created by xh.zeng on 2017/1/3.
  */
 
@@ -17,7 +21,25 @@ public class GirlPhotoActivity extends BaseActivity<GirlPhotoPresenter> implemen
     @BindView(R.id.iv_girl_photo)
     ImageView mIvGirlPhoto;
 
-    private String url;
+    private String mImageUrl;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        if(getIntent()!=null){
+            mImageUrl = getIntent().getStringExtra(Constant.EXTRA_URL);
+        }
+        loadImage();
+    }
+
+    private void loadImage(){
+        Glide.with(this)
+                .load(mImageUrl)
+                .centerCrop()
+                .into(mIvGirlPhoto);
+
+    }
 
     @Override
     protected void initPresenter() {

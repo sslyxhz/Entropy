@@ -13,6 +13,8 @@ import com.xhz.entropy.ui.view.IGirlPhotoView;
 
 public class GirlPhotoPresenter extends BasePresenter<IGirlPhotoView>{
 
+    private String mGrilImageUrl;
+
     public GirlPhotoPresenter(Activity context, IGirlPhotoView view) {
         super(context, view);
     }
@@ -32,4 +34,11 @@ public class GirlPhotoPresenter extends BasePresenter<IGirlPhotoView>{
 
     }
 
+    public String getmGrilImageUrl() {
+        return mGrilImageUrl;
+    }
+
+    public void setmGrilImageUrl(String mGrilImageUrl) {
+        this.mGrilImageUrl = mGrilImageUrl;
+    }
 }
