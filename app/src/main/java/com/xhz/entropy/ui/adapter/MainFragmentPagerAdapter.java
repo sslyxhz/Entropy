@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.xhz.entropy.ui.fragment.TypeDataFragment;
+
 import java.util.List;
 
 /**
@@ -12,16 +14,18 @@ import java.util.List;
 
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> mFragments;
+    public static final String TAG = MainFragmentPagerAdapter.class.getSimpleName();
 
-    public MainFragmentPagerAdapter(FragmentManager fm, List<Fragment> list){
+    private List<TypeDataFragment> mFragments;
+
+    public MainFragmentPagerAdapter(FragmentManager fm, List<TypeDataFragment> list){
         super(fm);
         mFragments = list;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Tab"+position;
+        return mFragments.get(position).getTagName();
     }
 
     @Override

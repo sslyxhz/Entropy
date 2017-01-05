@@ -4,21 +4,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.xhz.entropy.R;
+import com.xhz.entropy.net.GankService;
 import com.xhz.entropy.presenter.MainPresenter;
 import com.xhz.entropy.ui.adapter.MainFragmentPagerAdapter;
-import com.xhz.entropy.ui.fragment.PageContentFragment;
+import com.xhz.entropy.ui.fragment.TypeDataFragment;
 import com.xhz.entropy.ui.view.IMainView;
 
 import java.util.ArrayList;
@@ -43,14 +42,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @BindView(R.id.tl_main_content) TabLayout mTabLayout;
 
     MainFragmentPagerAdapter mPagerAdapter;
-    private List<Fragment> mFragments;
+    private List<TypeDataFragment> mFragments;
 
     @Override
     protected void init(){
+        initData();
+
         setSupportActionBar(mToolbar);
+        setTitle("Entropy", false);     // 设置标题
 
         mNavigationView.setNavigationItemSelectedListener(this);
-
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,39 +66,39 @@ public class MainActivity extends BaseActivity<MainPresenter>
         toggle.syncState();
 
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d(TAG, "--------onPageScrolled position:" + position);
-                Log.d(TAG, "--------onPageScrolled positionOffset:" + positionOffset);
-                Log.d(TAG, "--------onPageScrolled positionOffsetPixels:" + positionOffsetPixels);
+//                Log.d(TAG, "--------onPageScrolled position:" + position);
+//                Log.d(TAG, "--------onPageScrolled positionOffset:" + positionOffset);
+//                Log.d(TAG, "--------onPageScrolled positionOffsetPixels:" + positionOffsetPixels);
             }
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG, "-------onPageSelected:" + position);
-                mViewPager.setCurrentItem(position);
+//                Log.d(TAG, "-------onPageSelected:" + position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.d(TAG, "------onPageScrollStateChanged:" + state);
+//                Log.d(TAG, "------onPageScrollStateChanged:" + state);
             }
         });
+    }
 
-        setTitle("Entropy", false);
-
+    private void initData(){
         mFragments = new ArrayList<>();
-        mFragments.add(PageContentFragment.newInstance(1));
-        mFragments.add(PageContentFragment.newInstance(2));
-        mFragments.add(PageContentFragment.newInstance(3));
-        mFragments.add(PageContentFragment.newInstance(4));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.all.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.Android.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.iOS.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.休息视频.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.福利.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.拓展资源.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.瞎推荐.name()));
+        mFragments.add(TypeDataFragment.newInstance(GankService.GankType.App.name()));
         mPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), mFragments);
-        mViewPager.setAdapter(mPagerAdapter);
-
-        mViewPager.setCurrentItem(0);
     }
 
     @Override

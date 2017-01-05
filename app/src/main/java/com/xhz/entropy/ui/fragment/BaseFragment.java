@@ -33,9 +33,9 @@ public abstract class BaseFragment <P extends BasePresenter> extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContentView = inflater.inflate(getLayout(), container, false);
         ButterKnife.bind(this, mContentView);
-        init();
         initPresenter();
         checkPresenterIsNull();
+        init();
         return mContentView;
     }
 
