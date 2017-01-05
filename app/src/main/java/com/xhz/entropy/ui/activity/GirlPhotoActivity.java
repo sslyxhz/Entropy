@@ -1,6 +1,7 @@
 package com.xhz.entropy.ui.activity;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -23,22 +24,25 @@ public class GirlPhotoActivity extends BaseActivity<GirlPhotoPresenter> implemen
 
     private String mImageUrl;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-
-        if(getIntent()!=null){
-            mImageUrl = getIntent().getStringExtra(Constant.EXTRA_URL);
-        }
-        loadImage();
-    }
-
     private void loadImage(){
         Glide.with(this)
                 .load(mImageUrl)
                 .centerCrop()
                 .into(mIvGirlPhoto);
+    }
 
+    public static void actionStart(Context context, String url){
+        Intent intent = new Intent(context, GirlPhotoActivity.class);
+        intent.putExtra(Constant.EXTRA_URL, url);
+        context.startActivity(intent);
+    }
+
+    @Override
+    protected void init() {
+        if(getIntent()!=null){
+            mImageUrl = getIntent().getStringExtra(Constant.EXTRA_URL);
+        }
+        loadImage();
     }
 
     @Override

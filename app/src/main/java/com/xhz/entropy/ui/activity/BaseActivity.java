@@ -2,7 +2,6 @@ package com.xhz.entropy.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 import com.xhz.entropy.presenter.BasePresenter;
 
@@ -17,6 +16,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected abstract void initPresenter();
 
+    protected abstract void init();
+
     protected abstract int getLayout();
 
     @Override
@@ -24,6 +25,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.bind(this);
+        init();
         initPresenter();
         checkPresenterIsNull();
     }
@@ -31,29 +33,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onResume() {
         super.onResume();
-//        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        MobclickAgent.onPause(this);
     }
 
     private void checkPresenterIsNull() {
         if (mPresenter == null) {
             throw new IllegalStateException("please init mPresenter in initPresenter() method ");
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void setTitle(String strTitle, boolean showHome) {

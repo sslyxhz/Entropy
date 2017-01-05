@@ -1,6 +1,5 @@
 package com.xhz.entropy.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CheckResult;
 import android.support.design.widget.Snackbar;
@@ -8,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.xhz.entropy.Constant;
 import com.xhz.entropy.R;
 import com.xhz.entropy.data.bean.GankTypeData;
 import com.xhz.entropy.presenter.DataByDayPresenter;
@@ -36,20 +34,10 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
     private boolean mHasMoreData = true;
 
     @Override
-    protected int getLayout() {
-        return R.layout.activity_databyday;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         initRecycleView();
         setTitle("干果", false);
-    }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
 //        new Handler().postDelayed(new Runnable() {
 //
 //            @Override
@@ -58,11 +46,6 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
 //            }
 //        }, 500);
         mPresenter.reloadData();
-    }
-
-    @Override
-    protected void initPresenter() {
-        mPresenter = new DataByDayPresenter(this, this);
     }
 
     private void initRecycleView() {
@@ -98,6 +81,21 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_databyday;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initPresenter() {
+        mPresenter = new DataByDayPresenter(this, this);
     }
 
     @Override
@@ -153,9 +151,7 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
     public void onClickPhoto(int position, View view, View textView) {
         GankTypeData clickData = mAdapter.getGankData(position);
         if (clickData != null) {
-            Intent intent = new Intent(this, GirlPhotoActivity.class);
-            intent.putExtra(Constant.EXTRA_URL, clickData.getUrl());
-            startActivity(intent);
+            GirlPhotoActivity.actionStart(this, clickData.getUrl());
         }
     }
 }
