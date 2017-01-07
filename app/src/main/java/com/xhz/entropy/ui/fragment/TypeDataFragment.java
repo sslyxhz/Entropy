@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.xhz.entropy.R;
 import com.xhz.entropy.presenter.TypeDataPresenter;
@@ -19,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * 分类数据
  * Created by xh.zeng on 2017/1/5.
  */
 
@@ -27,7 +27,6 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
 
     public static final String TAG = TypeDataFragment.class.getSimpleName();
 
-    @BindView(R.id.tvTest) TextView mTvTest;
     @BindView(R.id.rv_content) RecyclerView mRvContent;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -36,7 +35,6 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
     private boolean mHasMoreData = true;
 
     public static TypeDataFragment newInstance(String tagName){
-        Log.v(TAG, "newInstance, tagName = "+tagName);
         TypeDataFragment fragment = new TypeDataFragment();
         fragment.setTagName(tagName);
         return fragment;
@@ -49,10 +47,6 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
 
     @Override
     protected void init() {
-        Log.v(TAG, "init");
-
-        mTvTest.setText(mTagName);
-
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

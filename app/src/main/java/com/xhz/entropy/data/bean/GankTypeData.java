@@ -1,5 +1,7 @@
 package com.xhz.entropy.data.bean;
 
+import android.text.TextUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -114,6 +116,9 @@ public class GankTypeData {
     }
 
     public String getWho() {
+        if(TextUtils.isEmpty(who)){
+            return "null";      // 至少要有显示
+        }
         return who;
     }
 
