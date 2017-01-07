@@ -7,19 +7,18 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.xhz.entropy.Constant;
 import com.xhz.entropy.R;
-import com.xhz.entropy.presenter.GirlPhotoPresenter;
-import com.xhz.entropy.ui.view.IGirlPhotoView;
+import com.xhz.entropy.presenter.ImagePresenter;
+import com.xhz.entropy.ui.view.IImageView;
 
 import butterknife.BindView;
 
 /**
- * 图片展示界面
- * Created by xh.zeng on 2017/1/3.
+ * Created by xh.zeng on 2017/1/7.
  */
 
-public class GirlPhotoActivity extends BaseActivity<GirlPhotoPresenter> implements IGirlPhotoView {
+public class ImageActivity extends BaseActivity<ImagePresenter> implements IImageView {
 
-    @BindView(R.id.iv_girl_photo)
+    @BindView(R.id.iv_activity_image)
     ImageView mIvGirlPhoto;
 
     private String mImageUrl;
@@ -32,7 +31,7 @@ public class GirlPhotoActivity extends BaseActivity<GirlPhotoPresenter> implemen
     }
 
     public static void actionStart(Context context, String url){
-        Intent intent = new Intent(context, GirlPhotoActivity.class);
+        Intent intent = new Intent(context, ImageActivity.class);
         intent.putExtra(Constant.EXTRA_URL, url);
         context.startActivity(intent);
     }
@@ -47,12 +46,12 @@ public class GirlPhotoActivity extends BaseActivity<GirlPhotoPresenter> implemen
 
     @Override
     protected void initPresenter() {
-        mPresenter = new GirlPhotoPresenter(this, this);
+        mPresenter = new ImagePresenter(this, this);
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_girlphoto;
+        return R.layout.activity_image;
     }
 
     @Override

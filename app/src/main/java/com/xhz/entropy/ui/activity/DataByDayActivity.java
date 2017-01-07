@@ -151,7 +151,7 @@ public class DataByDayActivity extends BaseSwipeRefreshActivity<DataByDayPresent
     public void onClickPhoto(int position, View view, View textView) {
         GankTypeData clickData = mAdapter.getGankData(position);
         if (clickData != null) {
-            GirlPhotoActivity.actionStart(this, clickData.getUrl());
+            ImageActivity.actionStart(this, clickData.getUrl());
         }
     }
 }

@@ -12,7 +12,9 @@ import com.bumptech.glide.Glide;
 import com.xhz.entropy.R;
 import com.xhz.entropy.data.bean.GankTypeData;
 import com.xhz.entropy.net.GankService;
+import com.xhz.entropy.ui.activity.ImageActivity;
 import com.xhz.entropy.util.DateUtil;
+import com.xhz.entropy.util.DisplayUtil;
 import com.xhz.entropy.util.LogUtil;
 
 import java.util.ArrayList;
@@ -84,26 +86,34 @@ public class TypeDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final GankTypeData data = mListData.get(position);
+        final GankTypeData typeData = mListData.get(position);
         if(holder instanceof WelfareViewHolder){
             WelfareViewHolder welfareHolder = (WelfareViewHolder)holder;
-            welfareHolder.tvDate.setText(data.getDesc());
+            welfareHolder.tvDate.setText(typeData.getDesc());
+            welfareHolder.ivWelfare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageActivity.actionStart(mContext, typeData.getUrl());
+                }
+            });
+
+            int sWidth = DisplayUtil.getWidth(mContext);
             Glide.with(mContext)
-                    .load(data.getUrl())
-                    .override(600, 200)
+                    .load(typeData.getUrl())
+                    .override(sWidth, sWidth/2)
                     .centerCrop()
                     .into(welfareHolder.ivWelfare);
         } else{
             GankViewHolder gankHolder = (GankViewHolder) holder;
-            gankHolder.tvDesc.setText(data.getDesc());
-            gankHolder.tvAuthor.setText(data.getWho());
-            gankHolder.tvTime.setText(DateUtil.toDate(data.getPublishedAt()));
-            gankHolder.tvTag.setText(data.getType());
+            gankHolder.tvDesc.setText(typeData.getDesc());
+            gankHolder.tvAuthor.setText(typeData.getWho());
+            gankHolder.tvTime.setText(DateUtil.toDate(typeData.getPublishedAt()));
+            gankHolder.tvTag.setText(typeData.getType());
             if (mIClickItem != null) {
                 gankHolder.ivOption.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogUtil.w("CreateAt:" + data.getCreatedAt());
+                        LogUtil.w("CreateAt:" + typeData.getCreatedAt());
 
                     }
                 });
