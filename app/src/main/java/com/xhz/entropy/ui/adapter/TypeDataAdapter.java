@@ -13,6 +13,7 @@ import com.xhz.entropy.R;
 import com.xhz.entropy.data.bean.GankTypeData;
 import com.xhz.entropy.net.GankService;
 import com.xhz.entropy.ui.activity.ImageActivity;
+import com.xhz.entropy.ui.activity.WebActivity;
 import com.xhz.entropy.util.DateUtil;
 import com.xhz.entropy.util.DisplayUtil;
 import com.xhz.entropy.util.LogUtil;
@@ -110,11 +111,10 @@ public class TypeDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             gankHolder.tvTime.setText(DateUtil.toDate(typeData.getPublishedAt()));
             gankHolder.tvTag.setText(typeData.getType());
             if (mIClickItem != null) {
-                gankHolder.ivOption.setOnClickListener(new View.OnClickListener() {
+                gankHolder.tvDesc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogUtil.w("CreateAt:" + typeData.getCreatedAt());
-
+                        WebActivity.actionStart(mContext, typeData.getUrl(), typeData.getDesc());
                     }
                 });
             }
