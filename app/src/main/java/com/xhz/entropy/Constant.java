@@ -10,7 +10,7 @@ public interface Constant {
 
     // Girl Photo
     String EXTRA_URL = BASE_NAME + ".EXTRA_URL";
-    String EXTRA_TITLE = BASE_NAME + ".EXTRA_TITLE";
+    String EXTRA_DESC = BASE_NAME + ".EXTRA_DESC";
 
     // TypeDataFragment
     String EXTRA_TAG_NAME = BASE_NAME + ".EXTRA_TAG_NAME";
