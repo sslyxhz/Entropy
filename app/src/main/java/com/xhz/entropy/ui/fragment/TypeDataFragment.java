@@ -1,7 +1,6 @@
 package com.xhz.entropy.ui.fragment;
 
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,17 +17,16 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 分类数据
+ * 分类数据展示
  * Created by xh.zeng on 2017/1/5.
  */
 
-public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
+public class TypeDataFragment extends BaseSwipeRefreshFragment<TypeDataPresenter>
         implements ITypeDataView, TypeDataAdapter.IClickItem{
 
     public static final String TAG = TypeDataFragment.class.getSimpleName();
 
     @BindView(R.id.rv_content) RecyclerView mRvContent;
-    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
 
     private String mTagName;
     private TypeDataAdapter mAdapter;
@@ -41,24 +39,7 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void init() {
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (prepareRefresh()) {
-                    mPresenter.reloadData();
-                } else {
-                    hideRefresh();
-                }
-            }
-        });
-
         mAdapter = new TypeDataAdapter(getContext());
         mAdapter.setIClickItem(this);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,43 +75,24 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
     }
 
     @Override
-    public void onLoadFailure(Throwable e) {
-        Snackbar.make(mRvContent, "加载数据失败", Snackbar.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onLoadEmpty() {
-        Snackbar.make(mRvContent, "加载数据为空", Snackbar.LENGTH_SHORT).show();
-    }
-
-    public String getTagName(){
-        return mTagName;
-    }
-
-    public void setTagName(String name){
-        mTagName = name;
-    }
-
-    @Override
     public void onClickItem(int position, View view, View textView) {
         Log.v(TAG, "onClickItem-" + position);
     }
 
+    /** ============================ 数据加载 start ============================ **/
+
     @Override
     public void fillData(List data) {
-        Log.v(TAG, "fillData-" + data);
         mAdapter.setDataSource(data);
     }
 
     @Override
     public void loadMoreData(List data) {
-        Log.v(TAG, "loadMoreData-" + data);
         mAdapter.appendToDataSource(data);
     }
 
     @Override
     public void hasNoMoreData() {
-        Log.v(TAG, "hasNoMoreData-"+false);
         mHasMoreData = false;
         Snackbar.make(mRvContent, "没有更多数据了", Snackbar.LENGTH_SHORT)
                 .setAction("回到顶部", new View.OnClickListener() {
@@ -143,28 +105,20 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
     }
 
     @Override
-    public void loadDataOver() {
-        Log.v(TAG, "loadDataOver");
-        hideRefresh();
+    public void onLoadFailure(Throwable e) {
+        Snackbar.make(mRvContent, "加载数据失败", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
+    public void onLoadEmpty() {
+        Snackbar.make(mRvContent, "加载数据为空", Snackbar.LENGTH_SHORT).show();
     }
+
+    /** ============================ 数据加载 end ============================ **/
+
+    /** ============================ 界面刷新 start ============================ **/
 
     @Override
-    public void hideRefresh() {
-        mSwipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mSwipeRefreshLayout != null) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        }, 1000);
-    }
-
     protected boolean prepareRefresh() {
         if (mPresenter.shouldReloadData()) {
             mPresenter.resetCurrentPage();
@@ -176,4 +130,21 @@ public class TypeDataFragment extends BaseFragment<TypeDataPresenter>
             return false;
         }
     }
+
+    @Override
+    protected void onRefreshStarted() {
+        mPresenter.reloadData();
+    }
+
+    /** ============================ 界面刷新 end ============================ **/
+
+
+    public String getTagName(){
+        return mTagName;
+    }
+
+    public void setTagName(String name){
+        mTagName = name;
+    }
+
 }
