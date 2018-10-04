@@ -26,7 +26,6 @@ public class ImageActivity extends BaseActivity<ImagePresenter> implements IImag
     private void loadImage(){
         Glide.with(this)
                 .load(mImageUrl)
-                .centerCrop()
                 .into(mIvGirlPhoto);
     }
 

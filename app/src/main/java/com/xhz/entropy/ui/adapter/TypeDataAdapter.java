@@ -101,8 +101,6 @@ public class TypeDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             int sWidth = DisplayUtil.getWidth(mContext);
             Glide.with(mContext)
                     .load(typeData.getUrl())
-                    .override(sWidth, sWidth/2)
-                    .centerCrop()
                     .into(welfareHolder.ivWelfare);
         } else{
             GankViewHolder gankHolder = (GankViewHolder) holder;

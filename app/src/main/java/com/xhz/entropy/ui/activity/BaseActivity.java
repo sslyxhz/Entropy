@@ -48,7 +48,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     public void setTitle(String strTitle, boolean showHome) {
         setTitle(strTitle);
-        getSupportActionBar().setDisplayShowHomeEnabled(showHome);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showHome);
+//        getSupportActionBar().setDisplayShowHomeEnabled(showHome);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(showHome);
     }
 }

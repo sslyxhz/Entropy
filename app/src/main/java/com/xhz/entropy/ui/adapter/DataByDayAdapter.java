@@ -78,7 +78,6 @@ public class DataByDayAdapter extends RecyclerView.Adapter<DataByDayAdapter.View
 
         Glide.with(mContext)
                 .load(entity.getUrl())
-                .centerCrop()
                 .into(holder.mIvIndexPhoto)
                 .getSize(new SizeReadyCallback() {
                     @Override
