@@ -14,7 +14,7 @@
         android:clickable="true"
         android:orientation="vertical">
 
-        <com.xhz.entropy.ui.widget.RatioImageView
+        <com.sslyxhz.entropy.ui.widget.RatioImageView
             android:id="@+id/iv_index_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

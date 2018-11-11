@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "com.xhz.entropy"
+        applicationId "com.sslyxhz.entropy"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -41,10 +41,10 @@ dependencies {
     // network
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:retrofit-adapters:2.2.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit-adapters:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.4.0'
     // rx
     //compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     implementation 'io.reactivex:rxandroid:1.2.1'
